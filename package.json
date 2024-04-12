@@ -1,12 +1,18 @@
 {
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
+    "beautiful-react-hooks": "^5.0.1",
+    "draggable": "^4.2.0",
+    "install": "^0.13.0",
+    "npm": "^10.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-resizable": "^3.0.5",
+    "react-scripts": "^5.0.1",
+    "react-to-pdf": "^1.0.1",
+    "react95": "^4.0.0",
+    "resizable": "^1.2.1",
+    "styled-components": "^6.1.1",
     "web-vitals": "^3.0.4"
   },
   "scripts": {
@@ -15,10 +21,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "verbose": true
+  },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -32,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@react95/icons": "^2.1.1"
   }
 }

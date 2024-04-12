@@ -1,13 +1,49 @@
+html,
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  height: 100%;
+  font-size: 16px;
+
+  @media only screen and (max-width: 600px) {
+    font-size: smaller; /* Adjust font size for small screens */
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url(../public/background.jpg);
+  background-size: 100% 100%;
+}
+
+h1 {
+  font-size: 4vw;
+  color: white;
+  text-align: center;
+  text-shadow: -4px 4px #ef3551, -8px 8px #f48fb1e6, -12px 12px #7e57c2e5,
+    -16px 16px #2195f3d9, -20px 20px #26c5dac5, -24px 24px #43a048de,
+    -28px 28px #efff41a2, -32px 32px #f9a825a3, -36px 36px #ff5622bc;
+  @media only screen and (max-width: 600px) {
+    font-size: x-large; /* Adjust font size for small screens */
+  }
+}
+
+footer {
+  color: #fff;
+  margin-top: 27vh; /* Push the footer to the bottom of the container */
+  text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    height: 100vh; /* Adjust the height to your desired value for smaller screens */
+  }
+}
+@import url("https://css.gg/css");
+:root {
+  --ggs: 6;
 }
