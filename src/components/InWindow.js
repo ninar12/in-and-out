@@ -14,14 +14,14 @@ import styled from "styled-components"
 import { useState, useEffect } from "react"
 import Draggable from "react-draggable"
 import { Resizable } from "react-resizable"
+import { Wmsui322224 } from "@react95/icons"
 
 const menu = {
   width: "95%",
   margin: "1vw",
+  backgroundColor: "rgba(255,255,255,0.4)",
 }
-const windowTitle = {
-  backgroundColor: "#85FE22",
-}
+const windowTitle = {}
 
 const frame = {
   display: "flex",
@@ -44,8 +44,6 @@ const close = {
 const deleteButton = {}
 const add = {
   float: "end",
-  color: "black",
-  backgroundColor: "#85FE22",
   marginLeft: "4vw",
 }
 
@@ -90,7 +88,7 @@ function InWindow({ save }) {
     overflow: "auto",
     maxHeight: isSmallScreen ? "80vh" : "70vh",
     padding: isSmallScreen ? "2vw" : "1vw 1vh",
-    boxShadow: "-4px -6px 103px 56px white",
+    boxShadow: "-4px -6px 80px 10px rgba(0,255,0,0.3)",
   }
 
   useEffect(() => {
@@ -130,7 +128,17 @@ function InWindow({ save }) {
                   key={i}
                   index={i}
                   item={item}>
-                  {item}
+                  <span
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+
+                      alignContent: "center",
+                      justifyContent: "center",
+                      gap: "1",
+                    }}>
+                    {item}
+                  </span>
                   {hoveredIndex === i && (
                     <Button
                       key={i}

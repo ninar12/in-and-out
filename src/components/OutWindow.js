@@ -14,16 +14,14 @@ import styled from "styled-components"
 import { useState, useEffect } from "react"
 import Draggable from "react-draggable"
 import { Resizable } from "react-resizable"
-import { Wmsui322224 } from "@react95/icons"
+import { Wmsui322224, Wmsui32_5084 } from "@react95/icons"
 
 const menu = {
   width: "95%",
   margin: "1vw",
+  backgroundColor: "rgba(255,255,255,0.4)",
 }
-const windowTitle = {
-  color: "white",
-  backgroundColor: "red",
-}
+const windowTitle = {}
 const StyledMenuListItem = styled(MenuListItem)`
   &:hover {
   }
@@ -35,10 +33,9 @@ const frame = {
   marginBottom: "1vh",
   flexWrap: "wrap", // Allow items to wrap to the next line on smaller screens
   zIndex: "0",
-  padding: "1vw",
 }
 const textinput = {
-  maxWidth: "90%",
+  maxWidth: "70%",
   marginLeft: "1vw",
   zIndex: "1",
 }
@@ -50,8 +47,8 @@ const close = {
 const deleteButton = {}
 const add = {
   float: "end",
-  backgroundColor: "red",
-  marginLeft: "1vw",
+
+  marginLeft: "4vw",
 }
 
 function OutWindow({ save }) {
@@ -90,12 +87,11 @@ function OutWindow({ save }) {
   }
   const [isSmallScreen, setIsSmallScreen] = useState(false)
   const background = {
-    backgroundColor: "#D1D1D1",
     maxWidth: isSmallScreen ? "60vw" : "40vw",
     overflow: "auto",
     maxHeight: isSmallScreen ? "80vh" : "70vh",
     padding: isSmallScreen ? "2vw" : "1vw 1vh",
-    boxShadow: "-4px -6px 103px 56px white",
+    boxShadow: "-4px -6px 80px 10px rgba(255,0,0,0.3)",
   }
 
   useEffect(() => {
@@ -143,7 +139,6 @@ function OutWindow({ save }) {
                       justifyContent: "center",
                       gap: "1",
                     }}>
-                    <Wmsui322224 variant="16x16_4" style={{ marginRight: 2 }} />{" "}
                     <p>{item}</p>
                   </span>
                   {hoveredIndex === i && (
