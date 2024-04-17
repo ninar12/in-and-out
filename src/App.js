@@ -8,6 +8,7 @@ import {
   Button,
   Toolbar,
   Separator,
+  Anchor,
   WindowContent,
   ScrollView,
   GroupBox,
@@ -86,6 +87,7 @@ import {
   wmii,
 } from "react95/dist/themes"
 import { ThemeProvider } from "styled-components"
+
 function menuListFile({ onSave, onPDF }) {
   return (
     <MenuList
@@ -174,7 +176,6 @@ function App() {
     { value: powerShell, label: "Power Shell" },
     { value: raspberry, label: "Raspberry" },
     { value: redWine, label: "Red Wine" },
-
     { value: shelbiTeal, label: "Shelbi Teal" },
     { value: slate, label: "Slate" },
     { value: solarizedDark, label: "Solarized Dark" },
@@ -191,14 +192,18 @@ function App() {
     { value: windows1, label: "Windows 1" },
     { value: wmii, label: "Wmii" },
   ]
-  const [avatarEmoji, setAvatarEmoji] = useState("🐱")
 
   const handleAvatarChange = (event) => {
-    setAvatarEmoji(event.target.value)
+    setCurrentAvatar(event.target.value)
   }
   const storedTheme = JSON.parse(localStorage.getItem("theme"))
+  const storedAvatar = JSON.parse(localStorage.getItem("avatar"))
   const [currentTheme, setCurrentTheme] = useState(
     storedTheme ? storedTheme : options[0]
+  )
+
+  const [currentAvatar, setCurrentAvatar] = useState(
+    storedAvatar ? storedAvatar : "🐱"
   )
 
   const [toggleClickFile, setToggleClickFile] = useState(false)
@@ -234,110 +239,124 @@ function App() {
     localStorage.setItem("theme", JSON.stringify(currentTheme))
   }, [currentTheme])
 
+  useEffect(() => {
+    localStorage.setItem("avatar", JSON.stringify(currentAvatar))
+  }, [currentAvatar])
+
   return (
-    <body style={{ background: `${currentTheme.value.desktopBackground}` }}>
+    <body
+      style={{
+        height: "100vh",
+        background: `${currentTheme.value.desktopBackground}`,
+      }}>
       <ThemeProvider
         style={{ background: `${currentTheme.value.desktopBackground}` }}
         theme={currentTheme.value}>
         {isOpen && (
-          <Window
-            isOpen={isOpen}
-            onClose={handleClose}
-            title="My Pop Up"
-            style={{
-              position: "absolute",
-              top: "10%",
-              left: "10%",
-              color: "black",
-              zIndex: 5,
-              maxHeight: "max-content",
-            }}>
-            <WindowHeader>
-              How to Export{" "}
-              <Button onClick={handleClose} style={close}>
-                <span className="close-icon">X</span>
-              </Button>
-            </WindowHeader>
-            <h3>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                height="20"
-                width="20"
-                style={{ marginRight: 3 }}
-                stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"
-                />
-              </svg>
-              Control P or command P (how you would normally print a webpage)
-            </h3>
-            Adjust how you want to!
-            <ol>
-              <li>Adjust margin</li>
-              <li>
-                Add background and other colors by turning on Options /
-                "Background Graphics"
-              </li>
-            </ol>
-            <img style={{ height: 500 }} src={example}></img>
-          </Window>
+          <Draggable>
+            <Window
+              isOpen={isOpen}
+              onClose={handleClose}
+              title="My Pop Up"
+              style={{
+                position: "absolute",
+                top: "8%",
+                left: "5%",
+                color: "black",
+
+                zIndex: 5,
+                maxHeight: "max-content",
+              }}>
+              <WindowHeader>
+                How to Export{" "}
+                <Button onClick={handleClose} style={close}>
+                  <span className="close-icon">X</span>
+                </Button>
+              </WindowHeader>
+              <h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  height="20"
+                  width="20"
+                  style={{ marginRight: 3 }}
+                  stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"
+                  />
+                </svg>
+                Control P or command P (how you would normally print a webpage)
+              </h3>
+              Adjust how you want to!
+              <ol>
+                <li>Adjust margin</li>
+                <li>
+                  Add background and other colors by turning on Options /
+                  "Background Graphics"
+                </li>
+              </ol>
+              <p>Example:</p>
+              <img style={{ height: 400 }} src={example}></img>
+            </Window>
+          </Draggable>
         )}
         {isSettingsOpen && (
-          <Window
-            isOpen={isSettingsOpen}
-            onClose={handleSettingsClose}
-            title="My Pop Up"
-            style={{
-              position: "absolute",
-              top: "10%",
-              left: "10%",
-              width: "25%",
-              zIndex: 5,
-              maxHeight: "max-content",
-            }}>
-            <WindowHeader>
-              Settings{" "}
-              <Button onClick={handleSettingsClose} style={close}>
-                <span className="close-icon">X</span>
-              </Button>
-            </WindowHeader>
-            <WindowContent>
-              <GroupBox
-                style={{ marginBottom: "20px" }}
-                label="theme"
-                variant="flat">
-                <Select
-                  variant="flat"
-                  defaultValue={currentTheme.value}
-                  onChange={(option) => onThemeChange(option)}
-                  options={options}
-                  width="100%"
-                  menuMaxHeight={160}
-                />
-              </GroupBox>
+          <Draggable>
+            <Window
+              isOpen={isSettingsOpen}
+              onClose={handleSettingsClose}
+              title="My Pop Up"
+              style={{
+                position: "absolute",
+                top: "10%",
+                left: "10%",
+                width: "25%",
+                zIndex: 5,
+                maxHeight: "max-content",
+              }}>
+              <WindowHeader>
+                Settings{" "}
+                <Button onClick={handleSettingsClose} style={close}>
+                  <span className="close-icon">X</span>
+                </Button>
+              </WindowHeader>
+              <WindowContent>
+                <GroupBox
+                  style={{ marginBottom: "20px" }}
+                  label="theme"
+                  variant="flat">
+                  <Select
+                    variant="flat"
+                    defaultValue={currentTheme.value}
+                    onChange={(option) => onThemeChange(option)}
+                    options={options}
+                    width="100%"
+                    menuMaxHeight={160}
+                  />
+                </GroupBox>
 
-              <GroupBox
-                label="Avatar"
-                style={{ display: "flex", justifyContent: "space-between" }}
-                variant="flat">
-                <Avatar square size={50}>
-                  <span role="img" aria-label={avatarEmoji}>
-                    {avatarEmoji}
-                  </span>
-                </Avatar>
-                <TextInput
-                  type="text"
-                  value={avatarEmoji}
-                  onChange={handleAvatarChange}
-                />
-              </GroupBox>
-            </WindowContent>
-          </Window>
+                <GroupBox
+                  label="Avatar"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                  variant="flat">
+                  <Avatar square size={50}>
+                    <span role="img" aria-label={currentAvatar}>
+                      {currentAvatar}
+                    </span>
+                  </Avatar>
+                  <TextInput
+                    type="text"
+                    value={currentAvatar}
+                    onChange={handleAvatarChange}
+                  />
+                </GroupBox>
+              </WindowContent>
+            </Window>
+          </Draggable>
         )}
         <div className="App">
           <AppBar>
@@ -357,12 +376,13 @@ function App() {
                   padding: 0,
                 }}>
                 <Access229 style={{ marginRight: 5 }} />
+
                 <p
                   style={{
                     fontSize: "16px",
                     fontWeight: "bold",
                   }}>
-                  In and out Generator
+                  In and out Generator by {currentAvatar ? currentAvatar : ""}
                 </p>
               </div>
               <div style={{ display: "flex", paddingRight: 4 }}>
@@ -402,9 +422,9 @@ function App() {
               left: 10,
             }}>
             made by Nina Rhone w/{" "}
-            <a href="https://storybook.js.org/showcase/react95-react95">
+            <Anchor href="https://storybook.js.org/showcase/react95-react95">
               react-95 Y2k components
-            </a>
+            </Anchor>
           </footer>
         </div>
       </ThemeProvider>

@@ -15,7 +15,7 @@ import { useState, useEffect } from "react"
 import Draggable from "react-draggable"
 import { Resizable } from "react-resizable"
 import { Wmsui322224 } from "@react95/icons"
-
+import { Tooltip } from "react95"
 const menu = {
   width: "95%",
   margin: "1vw",
@@ -115,6 +115,7 @@ function InWindow({ save }) {
         <Window style={background} className="window">
           <WindowHeader style={windowTitle} className="window-title">
             <span>in for 2024</span>
+
             <Button style={close}>
               <span className="close-icon">X</span>
             </Button>
