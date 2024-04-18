@@ -114,11 +114,16 @@ function OutWindow({ save }) {
 
   return (
     <>
-      <Draggable onDrag={handleDrag} position={position} touchAction="none">
+      <Draggable
+        onDrag={handleDrag}
+        handle=".window"
+        position={position}
+        cancel=".button-undraggable"
+        touchAction="none">
         <Window style={background} className="window">
-          <WindowHeader style={windowTitle}>
+          <WindowHeader className="window-title" style={windowTitle}>
             <span>out for 2024</span>
-            <Button style={close}>
+            <Button style={close} className="button-undraggable">
               <span className="close-icon">X</span>
             </Button>
           </WindowHeader>
@@ -126,6 +131,7 @@ function OutWindow({ save }) {
             {outItems.map((item, i) => (
               <>
                 <StyledMenuListItem
+                  className="button-undraggable"
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   key={i}
@@ -144,6 +150,7 @@ function OutWindow({ save }) {
                   {hoveredIndex === i && (
                     <Button
                       key={i}
+                      className="button-undraggable"
                       style={deleteButton}
                       index={i}
                       item={item}
@@ -167,13 +174,17 @@ function OutWindow({ save }) {
           <div style={frame}>
             <TextInput
               style={textinput}
+              className="button-undraggable"
               value={outValue}
               onKeyDown={handleKeyDown}
               onChange={(e) => {
                 setOutValue(e.target.value)
               }}
               placeholder="what is OUT?"></TextInput>
-            <Button onClick={handleSubmit} style={add}>
+            <Button
+              onClick={handleSubmit}
+              className="button-undraggable"
+              style={add}>
               Add ➕
             </Button>
           </div>

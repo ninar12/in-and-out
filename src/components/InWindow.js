@@ -48,6 +48,8 @@ const add = {
 }
 
 function InWindow({ save }) {
+  const isMobile = window.matchMedia("(max-width: 768px)").matches
+
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const handleDrag = (e, data) => {
     e.stopPropagation()
@@ -111,12 +113,16 @@ function InWindow({ save }) {
 
   return (
     <>
-      <Draggable onDrag={handleDrag} position={position} touchAction="none">
+      <Draggable
+        onDrag={handleDrag}
+        handle=".window"
+        cancel=".button-undraggable"
+        position={position}
+        touchAction="none">
         <Window style={background} className="window">
           <WindowHeader style={windowTitle} className="window-title">
             <span>in for 2024</span>
-
-            <Button style={close}>
+            <Button style={close} className="button-undraggable">
               <span className="close-icon">X</span>
             </Button>
           </WindowHeader>
@@ -128,12 +134,12 @@ function InWindow({ save }) {
                   onMouseLeave={() => setHoveredIndex(null)}
                   key={i}
                   index={i}
+                  className="button-undraggable"
                   item={item}>
                   <span
                     style={{
                       display: "flex",
                       alignItems: "center",
-
                       alignContent: "center",
                       justifyContent: "center",
                       gap: "1",
@@ -145,6 +151,7 @@ function InWindow({ save }) {
                       key={i}
                       style={deleteButton}
                       index={i}
+                      className="button-undraggable"
                       item={item}
                       onClick={() => deleteInItem(i)}>
                       <svg
@@ -166,13 +173,17 @@ function InWindow({ save }) {
           <div style={frame}>
             <TextInput
               style={textinput}
+              className="button-undraggable"
               value={inValue}
               onKeyDown={handleKeyDown}
               onChange={(e) => {
                 setInValue(e.target.value)
               }}
               placeholder="what is IN?"></TextInput>
-            <Button onClick={handleSubmit} style={add}>
+            <Button
+              onClick={handleSubmit}
+              className="button-undraggable"
+              style={add}>
               Add ➕
             </Button>
           </div>

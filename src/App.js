@@ -205,6 +205,7 @@ function App() {
   const [currentAvatar, setCurrentAvatar] = useState(
     storedAvatar ? storedAvatar : "🐱"
   )
+  const isMobile = window.matchMedia("(max-width: 768px)").matches
 
   const [toggleClickFile, setToggleClickFile] = useState(false)
   const [toggleClickSettings, setToggleClickSettings] = useState(false)
@@ -223,15 +224,18 @@ function App() {
     setIsOpen(true)
   }
 
-  const handleClose = () => {
+  const handleClose = (e) => {
+    e.preventDefault()
     setIsOpen(false)
   }
 
-  const handleSettingsClick = () => {
+  const handleSettingsClick = (e) => {
+    e.preventDefault()
     setIsSettingsOpen(true)
   }
 
-  const handleSettingsClose = () => {
+  const handleSettingsClose = (e) => {
+    e.preventDefault()
     setIsSettingsOpen(false)
   }
 
@@ -253,23 +257,27 @@ function App() {
         style={{ background: `${currentTheme.value.desktopBackground}` }}
         theme={currentTheme.value}>
         {isOpen && (
-          <Draggable>
+          <Draggable handle=".window-header" cancel=".button-undraggable">
             <Window
               isOpen={isOpen}
               onClose={handleClose}
+              className="window-header"
               title="My Pop Up"
               style={{
                 position: "absolute",
                 top: "8%",
                 left: "5%",
-                color: "black",
-
                 zIndex: 5,
+                fontSize: isMobile ? "smaller" : "",
+                width: isMobile ? "300px" : "40vw",
                 maxHeight: "max-content",
               }}>
-              <WindowHeader>
+              <WindowHeader className="window-header">
                 How to Export{" "}
-                <Button onClick={handleClose} style={close}>
+                <Button
+                  className="button-undraggable"
+                  onClick={handleClose}
+                  style={close}>
                   <span className="close-icon">X</span>
                 </Button>
               </WindowHeader>
@@ -290,6 +298,7 @@ function App() {
                   />
                 </svg>
                 Control P or command P (how you would normally print a webpage)
+                or just screenshot it!
               </h3>
               Adjust how you want to!
               <ol>
@@ -300,13 +309,17 @@ function App() {
                 </li>
               </ol>
               <p>Example:</p>
-              <img style={{ height: 400 }} src={example}></img>
+              <img style={{ height: isMobile ? 190 : 400 }} src={example}></img>
             </Window>
           </Draggable>
         )}
         {isSettingsOpen && (
-          <Draggable>
+          <Draggable
+            handle=".window-title"
+            bounds={{ bottom: "5px" }}
+            cancel=".button-undraggable">
             <Window
+              className="window-title"
               isOpen={isSettingsOpen}
               onClose={handleSettingsClose}
               title="My Pop Up"
@@ -314,23 +327,31 @@ function App() {
                 position: "absolute",
                 top: "10%",
                 left: "10%",
-                width: "25%",
+                width: isMobile ? "300px" : "40vw",
                 zIndex: 5,
+                fontSize: isMobile ? "smaller" : "",
                 maxHeight: "max-content",
               }}>
               <WindowHeader>
                 Settings{" "}
-                <Button onClick={handleSettingsClose} style={close}>
+                <Button
+                  onClick={handleSettingsClose}
+                  className="button-undraggable"
+                  style={close}>
                   <span className="close-icon">X</span>
                 </Button>
               </WindowHeader>
               <WindowContent>
                 <GroupBox
-                  style={{ marginBottom: "20px" }}
+                  style={{
+                    marginBottom: "20px",
+                    fontSize: isMobile ? "smaller" : "",
+                  }}
                   label="theme"
                   variant="flat">
                   <Select
                     variant="flat"
+                    className="button-undraggable"
                     defaultValue={currentTheme.value}
                     onChange={(option) => onThemeChange(option)}
                     options={options}
@@ -349,6 +370,7 @@ function App() {
                     </span>
                   </Avatar>
                   <TextInput
+                    className="button-undraggable"
                     type="text"
                     value={currentAvatar}
                     onChange={handleAvatarChange}
