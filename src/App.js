@@ -23,7 +23,7 @@ import Draggable from "react-draggable"
 import { useState, useEffect } from "react"
 import inandouttitle from "./inandouttitle.png"
 import OutWindow from "./components/OutWindow"
-import { Access229 } from "@react95/icons"
+import { Access229, Password1000, logoData } from "@react95/icons"
 import { usePDF } from "react-to-pdf"
 import example from "./example.png"
 import {
@@ -196,8 +196,19 @@ function App() {
   const handleAvatarChange = (event) => {
     setCurrentAvatar(event.target.value)
   }
+
+  const handleTimeChange = (e) => {
+    e.preventDefault()
+    setCurrentTime(e.target.value)
+  }
+  const onThemeChange = (index) => {
+    setCurrentTheme(index)
+  }
+
   const storedTheme = JSON.parse(localStorage.getItem("theme"))
   const storedAvatar = JSON.parse(localStorage.getItem("avatar"))
+  const storedTime = JSON.parse(localStorage.getItem("time"))
+
   const [currentTheme, setCurrentTheme] = useState(
     storedTheme ? storedTheme : options[0]
   )
@@ -205,14 +216,16 @@ function App() {
   const [currentAvatar, setCurrentAvatar] = useState(
     storedAvatar ? storedAvatar : "🐱"
   )
+
+  const [currentTime, setCurrentTime] = useState(
+    storedTime ? storedTime : "2024"
+  )
+
   const isMobile = window.matchMedia("(max-width: 768px)").matches
 
   const [toggleClickFile, setToggleClickFile] = useState(false)
   const [toggleClickSettings, setToggleClickSettings] = useState(false)
 
-  const onThemeChange = (index) => {
-    setCurrentTheme(index)
-  }
   const handleFileClick = () => {
     setToggleClickFile(!toggleClickFile)
   }
@@ -247,6 +260,10 @@ function App() {
     localStorage.setItem("avatar", JSON.stringify(currentAvatar))
   }, [currentAvatar])
 
+  useEffect(() => {
+    localStorage.setItem("time", JSON.stringify(currentTime))
+  }, [currentTime])
+
   return (
     <body
       style={{
@@ -268,6 +285,7 @@ function App() {
                 top: "8%",
                 left: "5%",
                 zIndex: 5,
+
                 fontSize: isMobile ? "smaller" : "",
                 width: isMobile ? "300px" : "40vw",
                 maxHeight: "max-content",
@@ -282,21 +300,11 @@ function App() {
                 </Button>
               </WindowHeader>
               <h3>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  height="20"
-                  width="20"
-                  style={{ marginRight: 3 }}
-                  stroke="currentColor">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"
-                  />
-                </svg>
+                <Password1000
+                  height={20}
+                  width={20}
+                  style={{ marginRight: 2 }}
+                />
                 Control P or command P (how you would normally print a webpage)
                 or just screenshot it!
               </h3>
@@ -309,7 +317,7 @@ function App() {
                 </li>
               </ol>
               <p>Example:</p>
-              <img style={{ height: isMobile ? 190 : 400 }} src={example}></img>
+              <img style={{ height: isMobile ? 190 : 250 }} src={example}></img>
             </Window>
           </Draggable>
         )}
@@ -327,7 +335,7 @@ function App() {
                 position: "absolute",
                 top: "10%",
                 left: "10%",
-                width: isMobile ? "300px" : "40vw",
+                width: isMobile ? "300px" : "30vw",
                 zIndex: 5,
                 fontSize: isMobile ? "smaller" : "",
                 maxHeight: "max-content",
@@ -374,6 +382,18 @@ function App() {
                     type="text"
                     value={currentAvatar}
                     onChange={handleAvatarChange}
+                  />
+                </GroupBox>
+                <GroupBox
+                  label="when is this in and out list for?"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                  variant="flat">
+                  <TextInput
+                    className="button-undraggable"
+                    type="text"
+                    placeholder="2024"
+                    value={currentTime}
+                    onChange={handleTimeChange}
                   />
                 </GroupBox>
               </WindowContent>
@@ -434,8 +454,8 @@ function App() {
             </Toolbar>
           </AppBar>
           <div>
-            <InWindow save={onSave}></InWindow>
-            <OutWindow save={onSave}></OutWindow>
+            <InWindow time={currentTime}></InWindow>
+            <OutWindow time={currentTime}></OutWindow>
           </div>
           <footer
             style={{
@@ -443,7 +463,7 @@ function App() {
               bottom: 10,
               left: 10,
             }}>
-            made by Nina Rhone w/{" "}
+            made by Nina Rhone w/
             <Anchor href="https://storybook.js.org/showcase/react95-react95">
               react-95 Y2k components
             </Anchor>

@@ -14,14 +14,13 @@ import styled from "styled-components"
 import { useState, useEffect } from "react"
 import Draggable from "react-draggable"
 import { Resizable } from "react-resizable"
-import { Wmsui322224 } from "@react95/icons"
+import { Wmsui322224, User6, User4, Delete, Tick } from "@react95/icons"
 import { Tooltip } from "react95"
 const menu = {
   width: "95%",
   margin: "1vw",
   backgroundColor: "rgba(255,255,255,0.4)",
 }
-const windowTitle = {}
 
 const frame = {
   display: "flex",
@@ -29,27 +28,19 @@ const frame = {
   alignContent: "middle",
   marginBottom: "1vh",
   flexWrap: "wrap", // Allow items to wrap to the next line on smaller screens
-  zIndex: "0",
-}
-const textinput = {
-  maxWidth: "70%",
-  marginLeft: "1vw",
-  zIndex: "1",
+  // zIndex: "0",
 }
 
 const close = {
   float: "right",
+  fontSize: "10px",
 }
 
-const deleteButton = {}
-const add = {
-  float: "end",
-  marginLeft: "4vw",
-}
-
-function InWindow({ save }) {
+function InWindow({ time }) {
   const isMobile = window.matchMedia("(max-width: 768px)").matches
-
+  const windowTitle = {
+    fontSize: isMobile ? "10px" : "",
+  }
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const handleDrag = (e, data) => {
     e.stopPropagation()
@@ -86,11 +77,26 @@ function InWindow({ save }) {
   }
   const [isSmallScreen, setIsSmallScreen] = useState(false)
   const background = {
-    maxWidth: isSmallScreen ? "60vw" : "40vw",
+    maxWidth: isSmallScreen ? "48vw" : "40vw",
     overflow: "auto",
     maxHeight: isSmallScreen ? "80vh" : "70vh",
+    fontSize: isSmallScreen ? "xsmall" : "",
     padding: isSmallScreen ? "2vw" : "1vw 1vh",
     boxShadow: "-4px -6px 80px 10px rgba(0,255,0,0.3)",
+  }
+  const deleteButton = {
+    height: isMobile ? "3vh" : "",
+  }
+  const add = {
+    float: "end",
+    marginLeft: isMobile ? "1vw" : "2vw",
+    fontSize: isMobile ? "1.5vh" : "",
+  }
+
+  const textinput = {
+    maxWidth: isMobile ? "58%" : "70%",
+    marginLeft: "0.9vw",
+    zIndex: "1",
   }
 
   useEffect(() => {
@@ -121,10 +127,9 @@ function InWindow({ save }) {
         touchAction="none">
         <Window style={background} className="window">
           <WindowHeader style={windowTitle} className="window-title">
-            <span>in for 2024</span>
-            <Button style={close} className="button-undraggable">
-              <span className="close-icon">X</span>
-            </Button>
+            <span style={{ fontSize: isMobile ? "1.5vh" : "" }}>
+              in for {time}
+            </span>
           </WindowHeader>
           <MenuList style={menu}>
             {inItems.map((item, i) => (
@@ -135,6 +140,7 @@ function InWindow({ save }) {
                   key={i}
                   index={i}
                   className="button-undraggable"
+                  style={{ height: isMobile ? "3vh" : "5.5vh" }}
                   item={item}>
                   <span
                     style={{
@@ -143,27 +149,30 @@ function InWindow({ save }) {
                       alignContent: "center",
                       justifyContent: "center",
                       gap: "1",
+
+                      fontSize: isMobile ? "smaller" : "",
                     }}>
                     {item}
                   </span>
                   {hoveredIndex === i && (
                     <Button
                       key={i}
-                      style={deleteButton}
+                      style={{
+                        ...deleteButton,
+                      }}
                       index={i}
                       className="button-undraggable"
                       item={item}
                       onClick={() => deleteInItem(i)}>
-                      <svg
-                        style={{ fill: "red" }}
-                        xmlns="http://www.w3.org/2000/svg"
-                        x="0px"
-                        y="0px"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 30 30">
-                        <path d="M 13 3 A 1.0001 1.0001 0 0 0 11.986328 4 L 6 4 A 1.0001 1.0001 0 1 0 6 6 L 24 6 A 1.0001 1.0001 0 1 0 24 4 L 18.013672 4 A 1.0001 1.0001 0 0 0 17 3 L 13 3 z M 6 8 L 6 24 C 6 25.105 6.895 26 8 26 L 22 26 C 23.105 26 24 25.105 24 24 L 24 8 L 6 8 z"></path>
-                      </svg>
+                      <Delete
+                        key={i}
+                        className="button-undraggable"
+                        item={item}
+                        style={{}}
+                        index={i}
+                        height={20}
+                        width={20}
+                      />
                     </Button>
                   )}
                 </MenuListItem>
@@ -184,7 +193,7 @@ function InWindow({ save }) {
               onClick={handleSubmit}
               className="button-undraggable"
               style={add}>
-              Add ➕
+              Add <Tick style={{ marginLeft: 3 }} height={20} width={20} />
             </Button>
           </div>
         </Window>
