@@ -89,7 +89,7 @@ function OutWindow({ time }) {
   }
   const add = {
     float: "end",
-    marginLeft: isMobile ? "1vw" : "2vw",
+    marginLeft: isMobile ? "0.4vw" : "2vw",
     fontSize: isMobile ? "1.5vh" : "",
   }
 
@@ -167,8 +167,8 @@ function OutWindow({ time }) {
                         item={item}
                         style={{}}
                         index={i}
-                        height={20}
-                        width={20}
+                        height={isMobile ? 10 : 20}
+                        width={isMobile ? 10 : 20}
                       />
                     </Button>
                   )}

@@ -301,8 +301,8 @@ function App() {
               </WindowHeader>
               <h3>
                 <Password1000
-                  height={20}
-                  width={20}
+                  height={isMobile ? 10 : 20}
+                  width={isMobile ? 10 : 20}
                   style={{ marginRight: 2 }}
                 />
                 Control P or command P (how you would normally print a webpage)
@@ -421,7 +421,7 @@ function App() {
 
                 <p
                   style={{
-                    fontSize: "16px",
+                    fontSize: isMobile ? "3vw" : "16px",
                     fontWeight: "bold",
                   }}>
                   In and out Generator by {currentAvatar ? currentAvatar : ""}
@@ -435,6 +435,7 @@ function App() {
                     style={{
                       position: "relative",
                       display: "inline-block",
+                      fontSize: isMobile ? "3vw" : "",
                     }}>
                     Export
                   </Button>
@@ -446,6 +447,7 @@ function App() {
                     style={{
                       position: "relative",
                       display: "inline-block",
+                      fontSize: isMobile ? "3vw" : "",
                     }}>
                     Settings
                   </Button>
