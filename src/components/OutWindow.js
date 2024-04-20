@@ -76,7 +76,7 @@ function OutWindow({ time }) {
   }
   const [isSmallScreen, setIsSmallScreen] = useState(false)
   const background = {
-    maxWidth: isSmallScreen ? "48vw" : "40vw",
+    maxWidth: isSmallScreen ? "48vw" : "max-content",
     overflow: "auto",
     maxHeight: isSmallScreen ? "80vh" : "70vh",
     fontSize: isSmallScreen ? "xsmall" : "",

@@ -27,7 +27,7 @@ const frame = {
   flexDirection: "row",
   alignContent: "middle",
   marginBottom: "1vh",
-  flexWrap: "wrap", // Allow items to wrap to the next line on smaller screens
+  flexWrap: "'nowrap',", // Allow items to wrap to the next line on smaller screens
   // zIndex: "0",
 }
 
@@ -77,7 +77,7 @@ function InWindow({ time }) {
   }
   const [isSmallScreen, setIsSmallScreen] = useState(false)
   const background = {
-    maxWidth: isSmallScreen ? "48vw" : "40vw",
+    maxWidth: isSmallScreen ? "48vw" : "max-content",
     overflow: "auto",
     maxHeight: isSmallScreen ? "80vh" : "70vh",
     fontSize: isSmallScreen ? "xsmall" : "",
