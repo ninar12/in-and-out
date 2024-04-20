@@ -31,7 +31,7 @@ const frame = {
   flexDirection: "row",
   alignContent: "middle",
   marginBottom: "1vh",
-  flexWrap: "wrap", // Allow items to wrap to the next line on smaller screens
+  flexWrap: "'nowrap',", // Allow items to wrap to the next line on smaller screens
   zIndex: "0",
 }
 
