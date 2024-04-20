@@ -460,8 +460,8 @@ function App() {
           <footer
             style={{
               position: "absolute",
-              bottom: 10,
-              left: 10,
+              bottom: "1vh",
+              left: "1vw",
             }}>
             made by Nina Rhone w/
             <Anchor href="https://storybook.js.org/showcase/react95-react95">
