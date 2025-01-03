@@ -1,20 +1,15 @@
 import {
   Button,
-  Frame,
-  Separator,
   MenuList,
   MenuListItem,
   TextInput,
-  Toolbar,
   Window,
-  WindowContent,
   WindowHeader,
 } from "react95"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
 import Draggable from "react-draggable"
-import { Resizable } from "react-resizable"
-import { Wmsui322224, Wmsui32_5084, Delete, Tick } from "@react95/icons"
+import { Delete, Tick } from "@react95/icons"
 
 const menu = {
   width: "95%",
@@ -34,11 +29,6 @@ const frame = {
   flexWrap: "'nowrap',", // Allow items to wrap to the next line on smaller screens
   zIndex: "0",
 }
-
-const close = {
-  float: "right",
-}
-
 function OutWindow({ time }) {
   const isMobile = window.matchMedia("(max-width: 768px)").matches
   const [position, setPosition] = useState({ x: 0, y: 0 })

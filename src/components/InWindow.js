@@ -1,21 +1,14 @@
 import {
   Button,
-  Frame,
-  Separator,
   MenuList,
   MenuListItem,
   TextInput,
-  Toolbar,
   Window,
-  WindowContent,
   WindowHeader,
 } from "react95"
-import styled from "styled-components"
 import { useState, useEffect } from "react"
 import Draggable from "react-draggable"
-import { Resizable } from "react-resizable"
-import { Wmsui322224, User6, User4, Delete, Tick } from "@react95/icons"
-import { Tooltip } from "react95"
+import { Delete, Tick } from "@react95/icons"
 const menu = {
   width: "95%",
   margin: "1vw",
@@ -29,11 +22,6 @@ const frame = {
   marginBottom: "1vh",
   flexWrap: "'nowrap',", // Allow items to wrap to the next line on smaller screens
   // zIndex: "0",
-}
-
-const close = {
-  float: "right",
-  fontSize: "10px",
 }
 
 function InWindow({ time }) {
@@ -53,7 +41,6 @@ function InWindow({ time }) {
     return savedInItems ? JSON.parse(savedInItems) : []
   })
   const [hoveredIndex, setHoveredIndex] = useState(null)
-  const [popup, setPopup] = useState(false)
 
   const deleteInItem = (index) => {
     const newInItems = [...inItems]

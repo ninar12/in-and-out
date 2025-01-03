@@ -3,28 +3,20 @@ import InWindow from "./components/InWindow"
 import {
   Avatar,
   AppBar,
-  MenuList,
-  MenuListItem,
   Button,
   Toolbar,
-  Separator,
   Anchor,
   WindowContent,
-  ScrollView,
   GroupBox,
   TextInput,
   Select,
-  SelectNative,
   Window,
-  ColorInput,
   WindowHeader,
 } from "react95"
 import Draggable from "react-draggable"
 import { useState, useEffect } from "react"
-import inandouttitle from "./inandouttitle.png"
 import OutWindow from "./components/OutWindow"
-import { Access229, Password1000, logoData } from "@react95/icons"
-import { usePDF } from "react-to-pdf"
+import { Access229, Password1000 } from "@react95/icons"
 import example from "./example.png"
 import {
   pamelaAnderson,
@@ -88,50 +80,7 @@ import {
 } from "react95/dist/themes"
 import { ThemeProvider } from "styled-components"
 
-function menuListFile({ onSave, onPDF }) {
-  return (
-    <MenuList
-      style={{
-        ...styles.menuList,
-      }}>
-      <MenuListItem onClick={onSave} style={{ ...styles.menuListItem }}>
-        Save
-      </MenuListItem>
-      <Separator></Separator>
-      <MenuListItem
-        onClick={onPDF}
-        style={{ color: "white", ...styles.menuListItem }}>
-        Export
-      </MenuListItem>
-    </MenuList>
-  )
-}
-function menuListSettings() {
-  return (
-    <MenuList
-      style={{
-        marginTop: 40,
-        marginLeft: -70,
-        color: "white",
-        position: "absolute",
-        minWidth: "100px",
-        boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
-        zIndex: "1",
-      }}>
-      <MenuListItem style={{ ...styles.menuListItem }}>
-        Preferences
-      </MenuListItem>
-    </MenuList>
-  )
-}
-
-const randomNumber = () => {
-  return Math.random()
-}
 function App() {
-  const [stickers, setStickers] = useState([])
-  const [toggle, setToggle] = useState(false)
-  const [onSave, setOnSave] = useState(false)
   const options = [
     { value: original, label: "Original" },
     { value: pamelaAnderson, label: "Pamela Anderson" },
@@ -218,17 +167,10 @@ function App() {
   )
 
   const [currentTime, setCurrentTime] = useState(
-    storedTime ? storedTime : "2024"
+    storedTime ? storedTime : "2025"
   )
 
   const isMobile = window.matchMedia("(max-width: 768px)").matches
-
-  const [toggleClickFile, setToggleClickFile] = useState(false)
-  const [toggleClickSettings, setToggleClickSettings] = useState(false)
-
-  const handleFileClick = () => {
-    setToggleClickFile(!toggleClickFile)
-  }
 
   const [isOpen, setIsOpen] = useState(false)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
@@ -317,7 +259,10 @@ function App() {
                 </li>
               </ol>
               <p>Example:</p>
-              <img style={{ height: isMobile ? 190 : 250 }} src={example}></img>
+              <img
+                style={{ height: isMobile ? 190 : 250 }}
+                alt="example-in-and-out"
+                src={example}></img>
             </Window>
           </Draggable>
         )}
@@ -391,7 +336,7 @@ function App() {
                   <TextInput
                     className="button-undraggable"
                     type="text"
-                    placeholder="2024"
+                    placeholder="2025"
                     value={currentTime}
                     onChange={handleTimeChange}
                   />
@@ -405,7 +350,6 @@ function App() {
             <Toolbar
               style={{
                 fontSize: "1.5vw",
-                justifyContent: "flex-start",
                 padding: 0,
                 justifyContent: "space-between",
               }}>
@@ -464,6 +408,7 @@ function App() {
               position: "absolute",
               bottom: "1vh",
               left: "1vw",
+              color: "gray",
             }}>
             made by Nina Rhone w/
             <Anchor href="https://storybook.js.org/showcase/react95-react95">
@@ -477,21 +422,6 @@ function App() {
 }
 
 export default App
-
-const styles = {
-  menuList: {
-    marginTop: 40,
-    marginLeft: -40,
-    position: "absolute",
-    minWidth: "100px",
-    boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
-    zIndex: "1",
-    cursor: "pointer",
-  },
-  menuListItem: {
-    cursor: "pointer",
-  },
-}
 
 const close = {
   float: "right",
